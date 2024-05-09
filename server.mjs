@@ -8,7 +8,7 @@ app.use(express.json())
 
 app.post("/:id", (req, res) => {
   const { body: { secret }, params: { id } } = req;
-  if (!secret || secret != "hello,world!") return res.sendStatus(400);
+  if (!secret || secret != "codeword") return res.sendStatus(400);
   else {
     res.json(question()[id]);
   }
