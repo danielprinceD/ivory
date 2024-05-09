@@ -1,8 +1,17 @@
 import express from "express";
 import { question } from "./quest.mjs";
-const app = express().get("/:id", (req, res) => {
-  const params = req.params;
-  res.json(question()[params.id]);
+import { body, validationResult } from 'express-validator'
+
+const app = express();
+
+app.use(express.json())
+
+app.post("/:id", (req, res) => {
+  const { body: { secret }, params: { id } } = req;
+  if (!secret || secret != "hello,world!") return res.sendStatus(400);
+  else {
+    res.json(question()[id]);
+  }
 });
 
 app.listen(3000, () => {
